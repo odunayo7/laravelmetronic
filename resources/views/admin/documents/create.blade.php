@@ -1,0 +1,121 @@
+@extends('layouts.admin')
+@section('content')
+
+<div class="card card-flush">
+    <div class="card-header mt-6">
+        {{ trans('global.create') }} {{ trans('cruds.document.title_singular') }}
+    </div>
+
+    <div class="card-body">
+        <form method="POST" action="{{ route("admin.documents.store") }}" enctype="multipart/form-data">
+            @csrf
+            <div class="fv-row mb-7">
+                <label class="required fs-6 fw-semibold mb-2" for="project_id">{{ trans('cruds.document.fields.project') }}</label>
+                <select class="form-control form-control-solid select2 {{ $errors->has('project') ? 'is-invalid' : '' }}" name="project_id" id="project_id" required>
+                    @foreach($projects as $id => $entry)
+                        <option value="{{ $id }}" {{ old('project_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('project'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('project') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.document.fields.project_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="required fs-6 fw-semibold mb-2" for="document_file">{{ trans('cruds.document.fields.document_file') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('document_file') ? 'is-invalid' : '' }}" id="document_file-dropzone">
+                </div>
+                @if($errors->has('document_file'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('document_file') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.document.fields.document_file_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="fs-6 fw-semibold mb-2" for="name">{{ trans('cruds.document.fields.name') }}</label>
+                <input class="form-control form-control-solid {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text" name="name" id="name" value="{{ old('name', '') }}">
+                @if($errors->has('name'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.document.fields.name_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="fs-6 fw-semibold mb-2" for="description">{{ trans('cruds.document.fields.description') }}</label>
+                <textarea class="form-control form-control-solid {{ $errors->has('description') ? 'is-invalid' : '' }}" name="description" id="description">{{ old('description') }}</textarea>
+                @if($errors->has('description'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('description') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.document.fields.description_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <button class="btn btn-primary" type="submit">
+                    {{ trans('global.save') }}
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+
+@endsection
+
+@section('scripts')
+<script>
+    Dropzone.options.documentFileDropzone = {
+    url: '{{ route('admin.documents.storeMedia') }}',
+    maxFilesize: 2, // MB
+    maxFiles: 1,
+    addRemoveLinks: true,
+    headers: {
+      'X-CSRF-TOKEN': "{{ csrf_token() }}"
+    },
+    params: {
+      size: 2
+    },
+    success: function (file, response) {
+      $('form').find('input[name="document_file"]').remove()
+      $('form').append('<input type="hidden" name="document_file" value="' + response.name + '">')
+    },
+    removedfile: function (file) {
+      file.previewElement.remove()
+      if (file.status !== 'error') {
+        $('form').find('input[name="document_file"]').remove()
+        this.options.maxFiles = this.options.maxFiles + 1
+      }
+    },
+    init: function () {
+@if(isset($document) && $document->document_file)
+      var file = {!! json_encode($document->document_file) !!}
+          this.options.addedfile.call(this, file)
+      file.previewElement.classList.add('dz-complete')
+      $('form').append('<input type="hidden" name="document_file" value="' + file.file_name + '">')
+      this.options.maxFiles = this.options.maxFiles - 1
+@endif
+    },
+     error: function (file, response) {
+         if ($.type(response) === 'string') {
+             var message = response //dropzone sends it's own error messages in string
+         } else {
+             var message = response.errors.file
+         }
+         file.previewElement.classList.add('dz-error')
+         _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+         _results = []
+         for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+             node = _ref[_i]
+             _results.push(node.textContent = message)
+         }
+
+         return _results
+     }
+}
+</script>
+@endsection

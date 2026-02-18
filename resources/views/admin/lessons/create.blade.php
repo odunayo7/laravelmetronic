@@ -1,0 +1,243 @@
+@extends('layouts.admin')
+@section('content')
+
+    <x-metronic.card flush="true" title="{{ trans('global.create') }} {{ trans('cruds.lesson.title_singular') }}">
+        <form method="POST" action="{{ route("admin.lessons.store") }}" enctype="multipart/form-data">
+            @csrf
+            <div class="fv-row mb-7">
+                <label class="required fs-6 fw-semibold mb-2"
+                    for="course_id">{{ trans('cruds.lesson.fields.course') }}</label>
+                <select class="form-control form-control-solid select2 {{ $errors->has('course') ? 'is-invalid' : '' }}"
+                    name="course_id" id="course_id" required>
+                    @foreach($courses as $id => $entry)
+                        <option value="{{ $id }}" {{ old('course_id') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('course'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('course') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.lesson.fields.course_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="required fs-6 fw-semibold mb-2" for="title">{{ trans('cruds.lesson.fields.title') }}</label>
+                <input class="form-control form-control-solid {{ $errors->has('title') ? 'is-invalid' : '' }}" type="text"
+                    name="title" id="title" value="{{ old('title', '') }}" required>
+                @if($errors->has('title'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('title') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.lesson.fields.title_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="fs-6 fw-semibold mb-2" for="thumbnail">{{ trans('cruds.lesson.fields.thumbnail') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('thumbnail') ? 'is-invalid' : '' }}"
+                    id="thumbnail-dropzone">
+                </div>
+                @if($errors->has('thumbnail'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('thumbnail') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.lesson.fields.thumbnail_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="fs-6 fw-semibold mb-2" for="short_text">{{ trans('cruds.lesson.fields.short_text') }}</label>
+                <textarea class="form-control form-control-solid {{ $errors->has('short_text') ? 'is-invalid' : '' }}"
+                    name="short_text" id="short_text">{{ old('short_text') }}</textarea>
+                @if($errors->has('short_text'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('short_text') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.lesson.fields.short_text_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="fs-6 fw-semibold mb-2" for="long_text">{{ trans('cruds.lesson.fields.long_text') }}</label>
+                <textarea class="form-control form-control-solid {{ $errors->has('long_text') ? 'is-invalid' : '' }}"
+                    name="long_text" id="long_text">{{ old('long_text') }}</textarea>
+                @if($errors->has('long_text'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('long_text') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.lesson.fields.long_text_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="fs-6 fw-semibold mb-2" for="video">{{ trans('cruds.lesson.fields.video') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('video') ? 'is-invalid' : '' }}" id="video-dropzone">
+                </div>
+                @if($errors->has('video'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('video') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.lesson.fields.video_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="fs-6 fw-semibold mb-2" for="position">{{ trans('cruds.lesson.fields.position') }}</label>
+                <input class="form-control form-control-solid {{ $errors->has('position') ? 'is-invalid' : '' }}"
+                    type="number" name="position" id="position" value="{{ old('position', '') }}" step="1">
+                @if($errors->has('position'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('position') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.lesson.fields.position_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <div
+                    class="form-check form-check-custom form-check-solid form-check-custom form-check-solid {{ $errors->has('is_published') ? 'is-invalid' : '' }}">
+                    <input type="hidden" name="is_published" value="0">
+                    <input class="form-check-input" type="checkbox" name="is_published" id="is_published" value="1" {{ old('is_published', 0) == 1 ? 'checked' : '' }}>
+                    <label class="form-check-label"
+                        for="is_published">{{ trans('cruds.lesson.fields.is_published') }}</label>
+                </div>
+                @if($errors->has('is_published'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('is_published') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.lesson.fields.is_published_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <div
+                    class="form-check form-check-custom form-check-solid form-check-custom form-check-solid {{ $errors->has('is_free') ? 'is-invalid' : '' }}">
+                    <input type="hidden" name="is_free" value="0">
+                    <input class="form-check-input" type="checkbox" name="is_free" id="is_free" value="1" {{ old('is_free', 0) == 1 ? 'checked' : '' }}>
+                    <label class="form-check-label" for="is_free">{{ trans('cruds.lesson.fields.is_free') }}</label>
+                </div>
+                @if($errors->has('is_free'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('is_free') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.lesson.fields.is_free_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <button class="btn btn-primary" type="submit">
+                    {{ trans('global.save') }}
+                </button>
+            </div>
+        </form>
+    </x-metronic.card>
+
+
+
+@endsection
+
+@section('scripts')
+    <script>
+        var uploadedThumbnailMap = {}
+        Dropzone.options.thumbnailDropzone = {
+            url: '{{ route('admin.lessons.storeMedia') }}',
+            maxFilesize: 2, // MB
+            acceptedFiles: '.jpeg,.jpg,.png,.gif',
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            params: {
+                size: 2,
+                width: 4096,
+                height: 4096
+            },
+            success: function (file, response) {
+                $('form').append('<input type="hidden" name="thumbnail[]" value="' + response.name + '">')
+                uploadedThumbnailMap[file.name] = response.name
+            },
+            removedfile: function (file) {
+                console.log(file)
+                file.previewElement.remove()
+                var name = ''
+                if (typeof file.file_name !== 'undefined') {
+                    name = file.file_name
+                } else {
+                    name = uploadedThumbnailMap[file.name]
+                }
+                $('form').find('input[name="thumbnail[]"][value="' + name + '"]').remove()
+            },
+            init: function () {
+                @if(isset($lesson) && $lesson->thumbnail)
+                    var files = {!! json_encode($lesson->thumbnail) !!}
+                    for (var i in files) {
+                        var file = files[i]
+                        this.options.addedfile.call(this, file)
+                        this.options.thumbnail.call(this, file, file.preview ?? file.preview_url)
+                        file.previewElement.classList.add('dz-complete')
+                        $('form').append('<input type="hidden" name="thumbnail[]" value="' + file.file_name + '">')
+                    }
+                @endif
+        },
+            error: function (file, response) {
+                if ($.type(response) === 'string') {
+                    var message = response //dropzone sends it's own error messages in string
+                } else {
+                    var message = response.errors.file
+                }
+                file.previewElement.classList.add('dz-error')
+                _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+                _results = []
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i]
+                    _results.push(node.textContent = message)
+                }
+
+                return _results
+            }
+        }
+
+    </script>
+    <script>
+        Dropzone.options.videoDropzone = {
+            url: '{{ route('admin.lessons.storeMedia') }}',
+            maxFilesize: 2, // MB
+            maxFiles: 1,
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            params: {
+                size: 2
+            },
+            success: function (file, response) {
+                $('form').find('input[name="video"]').remove()
+                $('form').append('<input type="hidden" name="video" value="' + response.name + '">')
+            },
+            removedfile: function (file) {
+                file.previewElement.remove()
+                if (file.status !== 'error') {
+                    $('form').find('input[name="video"]').remove()
+                    this.options.maxFiles = this.options.maxFiles + 1
+                }
+            },
+            init: function () {
+                @if(isset($lesson) && $lesson->video)
+                    var file = {!! json_encode($lesson->video) !!}
+                    this.options.addedfile.call(this, file)
+                    file.previewElement.classList.add('dz-complete')
+                    $('form').append('<input type="hidden" name="video" value="' + file.file_name + '">')
+                    this.options.maxFiles = this.options.maxFiles - 1
+                @endif
+        },
+            error: function (file, response) {
+                if ($.type(response) === 'string') {
+                    var message = response //dropzone sends it's own error messages in string
+                } else {
+                    var message = response.errors.file
+                }
+                file.previewElement.classList.add('dz-error')
+                _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+                _results = []
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i]
+                    _results.push(node.textContent = message)
+                }
+
+                return _results
+            }
+        }
+    </script>
+@endsection

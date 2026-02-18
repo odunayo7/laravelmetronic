@@ -1,0 +1,188 @@
+@extends('layouts.admin')
+@section('content')
+
+    <x-metronic.card flush="true" title="{{ trans('global.edit') }} {{ trans('cruds.asset.title_singular') }}">
+        <form method="POST" action="{{ route("admin.assets.update", [$asset->id]) }}" enctype="multipart/form-data">
+            @method('PUT')
+            @csrf
+            <div class="fv-row mb-7">
+                <label class="required fs-6 fw-semibold mb-2"
+                    for="category_id">{{ trans('cruds.asset.fields.category') }}</label>
+                <select class="form-control form-control-solid select2 {{ $errors->has('category') ? 'is-invalid' : '' }}"
+                    name="category_id" id="category_id" required>
+                    @foreach($categories as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('category_id') ? old('category_id') : $asset->category->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('category'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('category') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.asset.fields.category_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="fs-6 fw-semibold mb-2"
+                    for="serial_number">{{ trans('cruds.asset.fields.serial_number') }}</label>
+                <input class="form-control form-control-solid {{ $errors->has('serial_number') ? 'is-invalid' : '' }}"
+                    type="text" name="serial_number" id="serial_number"
+                    value="{{ old('serial_number', $asset->serial_number) }}">
+                @if($errors->has('serial_number'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('serial_number') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.asset.fields.serial_number_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="required fs-6 fw-semibold mb-2" for="name">{{ trans('cruds.asset.fields.name') }}</label>
+                <input class="form-control form-control-solid {{ $errors->has('name') ? 'is-invalid' : '' }}" type="text"
+                    name="name" id="name" value="{{ old('name', $asset->name) }}" required>
+                @if($errors->has('name'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('name') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.asset.fields.name_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="fs-6 fw-semibold mb-2" for="photos">{{ trans('cruds.asset.fields.photos') }}</label>
+                <div class="needsclick dropzone {{ $errors->has('photos') ? 'is-invalid' : '' }}" id="photos-dropzone">
+                </div>
+                @if($errors->has('photos'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('photos') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.asset.fields.photos_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="required fs-6 fw-semibold mb-2"
+                    for="status_id">{{ trans('cruds.asset.fields.status') }}</label>
+                <select class="form-control form-control-solid select2 {{ $errors->has('status') ? 'is-invalid' : '' }}"
+                    name="status_id" id="status_id" required>
+                    @foreach($statuses as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('status_id') ? old('status_id') : $asset->status->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('status'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('status') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.asset.fields.status_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="required fs-6 fw-semibold mb-2"
+                    for="location_id">{{ trans('cruds.asset.fields.location') }}</label>
+                <select class="form-control form-control-solid select2 {{ $errors->has('location') ? 'is-invalid' : '' }}"
+                    name="location_id" id="location_id" required>
+                    @foreach($locations as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('location_id') ? old('location_id') : $asset->location->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('location'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('location') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.asset.fields.location_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="fs-6 fw-semibold mb-2" for="notes">{{ trans('cruds.asset.fields.notes') }}</label>
+                <textarea class="form-control form-control-solid {{ $errors->has('notes') ? 'is-invalid' : '' }}"
+                    name="notes" id="notes">{{ old('notes', $asset->notes) }}</textarea>
+                @if($errors->has('notes'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('notes') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.asset.fields.notes_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <label class="fs-6 fw-semibold mb-2"
+                    for="assigned_to_id">{{ trans('cruds.asset.fields.assigned_to') }}</label>
+                <select
+                    class="form-control form-control-solid select2 {{ $errors->has('assigned_to') ? 'is-invalid' : '' }}"
+                    name="assigned_to_id" id="assigned_to_id">
+                    @foreach($assigned_tos as $id => $entry)
+                        <option value="{{ $id }}" {{ (old('assigned_to_id') ? old('assigned_to_id') : $asset->assigned_to->id ?? '') == $id ? 'selected' : '' }}>{{ $entry }}</option>
+                    @endforeach
+                </select>
+                @if($errors->has('assigned_to'))
+                    <div class="invalid-feedback">
+                        {{ $errors->first('assigned_to') }}
+                    </div>
+                @endif
+                <div class="text-muted fs-7">{{ trans('cruds.asset.fields.assigned_to_helper') }}</div>
+            </div>
+            <div class="fv-row mb-7">
+                <button class="btn btn-primary" type="submit">
+                    {{ trans('global.save') }}
+                </button>
+            </div>
+        </form>
+    </x-metronic.card>
+
+
+
+@endsection
+
+@section('scripts')
+    <script>
+        var uploadedPhotosMap = {}
+        Dropzone.options.photosDropzone = {
+            url: '{{ route('admin.assets.storeMedia') }}',
+            maxFilesize: 2, // MB
+            addRemoveLinks: true,
+            headers: {
+                'X-CSRF-TOKEN': "{{ csrf_token() }}"
+            },
+            params: {
+                size: 2
+            },
+            success: function (file, response) {
+                $('form').append('<input type="hidden" name="photos[]" value="' + response.name + '">')
+                uploadedPhotosMap[file.name] = response.name
+            },
+            removedfile: function (file) {
+                file.previewElement.remove()
+                var name = ''
+                if (typeof file.file_name !== 'undefined') {
+                    name = file.file_name
+                } else {
+                    name = uploadedPhotosMap[file.name]
+                }
+                $('form').find('input[name="photos[]"][value="' + name + '"]').remove()
+            },
+            init: function () {
+                @if(isset($asset) && $asset->photos)
+                    var files =
+                        {!! json_encode($asset->photos) !!}
+                    for (var i in files) {
+                        var file = files[i]
+                        this.options.addedfile.call(this, file)
+                        file.previewElement.classList.add('dz-complete')
+                        $('form').append('<input type="hidden" name="photos[]" value="' + file.file_name + '">')
+                    }
+                @endif
+        },
+            error: function (file, response) {
+                if ($.type(response) === 'string') {
+                    var message = response //dropzone sends it's own error messages in string
+                } else {
+                    var message = response.errors.file
+                }
+                file.previewElement.classList.add('dz-error')
+                _ref = file.previewElement.querySelectorAll('[data-dz-errormessage]')
+                _results = []
+                for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+                    node = _ref[_i]
+                    _results.push(node.textContent = message)
+                }
+
+                return _results
+            }
+        }
+    </script>
+@endsection
