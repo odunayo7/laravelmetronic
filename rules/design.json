@@ -1,0 +1,629 @@
+{
+    "_meta": {
+        "name": "Metronic Design System",
+        "version": "8.2.7",
+        "source": "demo1 HTML/CSS/JS + resources/views/components/metronic",
+        "framework": "Bootstrap 5 + Keenthemes Custom Layer",
+        "description": "Complete design guidelines for replicating the Metronic admin UI in a Laravel 12 project. All values extracted directly from demo1 assets and component source files."
+    },
+    "designPrinciples": {
+        "philosophy": "Professional enterprise admin UI. Clean, purposeful, data-first. Every element earns its place.",
+        "tone": "Corporate precision softened by tasteful color and generous whitespace. Neither austere nor playful.",
+        "density": "Medium-high information density. Cards tile the page in Bootstrap 12-col grids with consistent 24px gutters.",
+        "depth": "Flat with selective elevation. Cards use subtle box-shadows only, never aggressive drop-shadows.",
+        "motion": "Minimal. Transitions exist only for drawers, modals, and dropdown menus (fade/slide). No gratuitous animation.",
+        "iconography": "Duotone icons exclusively (ki-duotone prefix). Icons have 2–4 SVG path layers for depth. Never use emoji or flat single-color icons for UI actions.",
+        "darkMode": "Supported natively via data-bs-theme attribute on html element. Default is light mode.",
+        "responsiveness": "Mobile-first. Sidebar collapses to off-canvas drawer on mobile. Header adapts, grid columns stack.",
+        "accessibility": "Semantic HTML, aria-labels on interactive controls, focus rings preserved."
+    },
+    "colorPalette": {
+        "_note": "Extracted from style.bundle.css hex frequency analysis and dark-sidebar.html layout HTML.",
+        "brand": {
+            "primary": "#1B84FF",
+            "primaryDark": "#006AE6",
+            "primaryLight": "#EEF6FF",
+            "primaryLightBg": "bg-light-primary class — translucent primary tint used for icon badges and stat backgrounds"
+        },
+        "semantic": {
+            "success": "#17C653",
+            "successLight": "#DFFFEA",
+            "danger": "#F8285A",
+            "dangerLight": "#FFF0F3",
+            "warning": "#F6C000",
+            "warningLight": "#FFF8DD",
+            "info": "#7239EA",
+            "infoLight": "#F8F5FF"
+        },
+        "neutrals": {
+            "white": "#FFFFFF",
+            "bodyBg": "#F9F9F9",
+            "surfaceAlt": "#F1F1F4",
+            "border": "#DBDFE9",
+            "borderLight": "#F1F1F4",
+            "gray100": "#F9F9F9",
+            "gray200": "#F1F1F4",
+            "gray300": "#DBDFE9",
+            "gray400": "#C4CADA",
+            "gray500": "#99A1B7",
+            "gray600": "#78829D",
+            "gray700": "#4B5675",
+            "gray800": "#252F4A",
+            "gray900": "#071437"
+        },
+        "sidebar": {
+            "background": "#1E2129",
+            "hover": "#26272F",
+            "activeItem": "#363843",
+            "border": "#464852",
+            "text": "#808290",
+            "textActive": "#FFFFFF",
+            "textMuted": "#636674",
+            "darkest": "#1B1C22"
+        },
+        "header": {
+            "background": "#FFFFFF",
+            "border": "#F1F1F4",
+            "text": "#252F4A"
+        },
+        "text": {
+            "heading": "#071437",
+            "body": "#252F4A",
+            "muted": "#99A1B7",
+            "subdued": "#78829D",
+            "inverse": "#FFFFFF",
+            "link": "#1B84FF",
+            "linkHover": "#006AE6"
+        }
+    },
+    "typography": {
+        "_note": "Google Fonts Inter loaded via CDN. All weights 300–700.",
+        "fontFamily": "Inter, Helvetica, sans-serif",
+        "fontSource": "https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700",
+        "weights": {
+            "light": 300,
+            "regular": 400,
+            "medium": 500,
+            "semibold": 600,
+            "bold": 700
+        },
+        "scale": {
+            "fs-1": "1.75rem (28px) — Hero numbers, major page headings",
+            "fs-2": "1.5rem (24px) — Section headings, card hero values",
+            "fs-3": "1.25rem (20px) — Card titles, modal titles",
+            "fs-4": "1.15rem (18px) — Sub-headings, accordion triggers",
+            "fs-5": "1.05rem (16.8px) — Body text, nav items",
+            "fs-6": "1rem (16px) — Default body, table data, form labels",
+            "fs-7": "0.875rem (14px) — Helper text, badge labels, timestamps",
+            "fs-2hx": "2rem (32px) — Alert icons, hero icons",
+            "fs-3x": "3rem (48px) — Large icon displays, empty state icons"
+        },
+        "usageRules": {
+            "pageTitle": "fs-3 fw-bold text-gray-800 in toolbar, not inside card",
+            "cardTitle": "fs-3 fw-bold or card-title class (rendered as h3)",
+            "tableHeader": "fs-7 fw-bold text-uppercase text-gray-500",
+            "tableBody": "fs-6 fw-semibold text-gray-600",
+            "formLabel": "fs-6 fw-semibold text-gray-800 mb-2 (class: required for required fields)",
+            "formHelper": "fs-7 text-muted mt-1",
+            "badgeText": "fs-8 or unscaled — badge font is tiny, relies on padding",
+            "menuItem": "fs-6 fw-semibold text-gray-800",
+            "menuSubtext": "fs-7 fw-semibold text-muted"
+        }
+    },
+    "spacing": {
+        "_note": "Bootstrap 5 spacing scale. 1 unit = 0.25rem (4px). Max value used is 20 = 5rem (80px).",
+        "base": "0.25rem (4px)",
+        "scale": {
+            "1": "0.25rem / 4px",
+            "2": "0.5rem / 8px",
+            "3": "0.75rem / 12px",
+            "4": "1rem / 16px",
+            "5": "1.25rem / 20px",
+            "6": "1.5rem / 24px",
+            "7": "1.75rem / 28px",
+            "8": "2rem / 32px",
+            "9": "2.25rem / 36px",
+            "10": "2.5rem / 40px",
+            "15": "3.75rem / 60px",
+            "20": "5rem / 80px"
+        },
+        "formFieldMargin": "mb-7 (28px) between form rows",
+        "cardBodyPadding": "p-9 (36px) or auto from Bootstrap card defaults",
+        "sectionGutter": "gy-5 (20px vertical), gx-5 (20px horizontal) for dashboard rows",
+        "sidebarItemPadding": "px-3 py-2",
+        "tableRowGap": "gy-5 on table class"
+    },
+    "borderRadius": {
+        "_note": "Metronic uses a consistent gentle rounding. Never sharp corners, never pill-only.",
+        "card": "0.625rem (10px) — class: rounded or card default",
+        "button": "0.475rem (default Bootstrap btn)",
+        "badge": "0.325rem (rounded-sm) — or pill via .rounded-pill",
+        "input": "0.475rem — form-control default",
+        "symbol": "varies — symbol-circle for circle avatars, default for rounded square",
+        "modal": "0.625rem",
+        "avatar": "50% for circle (symbol-circle), ~0.475rem for square"
+    },
+    "shadows": {
+        "_note": "Minimal usage. Elevation is communicated via border, not shadow depth.",
+        "card": "box-shadow: 0 0 30px 0 rgba(82,63,105,0.05) — class: shadow-sm",
+        "cardHover": "Slightly elevated on hover in card-style widgets",
+        "dropdown": "Metronic menu-sub-dropdown uses a structured dropdown shadow",
+        "modal": "Standard Bootstrap modal shadow",
+        "principle": "Use shadow sparingly. Cards float subtly. Avoid multiple shadow layers."
+    },
+    "layout": {
+        "appShell": {
+            "structure": "Fixed header (top) + Fixed sidebar (left) + Scrollable main content area",
+            "bodyClasses": "data-kt-app-layout='dark-sidebar' data-kt-app-header-fixed='true' data-kt-app-sidebar-enabled='true' data-kt-app-sidebar-fixed='true' data-kt-app-sidebar-hoverable='true' class='app-default'",
+            "rootWrapper": "div.d-flex.flex-column.flex-root.app-root",
+            "pageWrapper": "div.app-page.flex-column.flex-column-fluid"
+        },
+        "header": {
+            "height": "~60px",
+            "background": "#FFFFFF",
+            "borderBottom": "1px solid #F1F1F4",
+            "position": "Fixed, sticky via data-kt-sticky",
+            "containerId": "kt_app_header",
+            "containerClass": "app-header",
+            "innerClass": "app-container container-fluid d-flex align-items-stretch justify-content-between",
+            "contents": "Logo (mobile), horizontal nav menu (desktop), search, notifications, user avatar dropdown",
+            "navStyle": "Horizontal mega-menu with hover dropdowns. Menu items: fw-semibold, text-gray-800. Active item uses text-active-primary and underline indicator."
+        },
+        "sidebar": {
+            "width": "280px (desktop), collapses to off-canvas on mobile",
+            "background": "#1E2129",
+            "position": "Fixed left",
+            "containerId": "kt_app_sidebar",
+            "logoArea": "Logo at top of sidebar, white or light variant",
+            "menuStyle": "Vertical stacked menu. Sections separated by headings (text-uppercase fs-8 fw-semibold text-muted). Items: px-3 py-2. Active item has left accent color bar and bg-hover.",
+            "expandBehavior": "Hoverable — sidebar expands to show labels on hover when in icon-only mode",
+            "scrollArea": ".hover-scroll-overlay-y for long menus",
+            "itemStructure": "menu-item > menu-link > (menu-icon | menu-bullet) + menu-title + menu-arrow",
+            "iconSize": "fs-3 duotone icons",
+            "activeColor": "text-primary or text-white with bg-active class on hover/selected"
+        },
+        "toolbar": {
+            "position": "Between header and content. Contains page title + breadcrumb + CTA buttons.",
+            "containerId": "kt_app_toolbar",
+            "innerClass": "app-container container-fluid d-flex align-items-center justify-content-between flex-wrap",
+            "titleClass": "page-heading d-flex flex-column justify-content-center me-3",
+            "breadcrumbClass": "breadcrumb breadcrumb-separatorless fw-semibold fs-7 my-0"
+        },
+        "contentArea": {
+            "containerId": "kt_app_content_container",
+            "containerClass": "app-container container-fluid",
+            "paddingY": "py-5 or default Bootstrap container padding",
+            "gridSystem": "12-column Bootstrap grid. Standard dashboard rows use col-md-6, col-xl-4, col-xl-3 combinations."
+        },
+        "footer": {
+            "background": "White or transparent",
+            "borderTop": "1px solid #F1F1F4",
+            "height": "~60px",
+            "content": "Copyright text left, links right"
+        }
+    },
+    "grid": {
+        "system": "Bootstrap 5 – 12 column fluid grid",
+        "gutter": "gx-5 gy-5 (20px each direction) for dashboard card rows",
+        "commonBreakpoints": {
+            "sm": "576px",
+            "md": "768px",
+            "lg": "992px",
+            "xl": "1200px",
+            "xxl": "1400px"
+        },
+        "dashboardPatterns": {
+            "fourColumn": "col-xl-3 col-md-6 — 4 stat cards per row (desktop)",
+            "threeColumn": "col-xl-4 col-md-6 — 3 cards per row",
+            "twoColumn": "col-xl-6 — 2 wide cards or chart + table side-by-side",
+            "fullWidth": "col-12 — full-width chart or table widget"
+        }
+    },
+    "components": {
+        "card": {
+            "description": "Primary content container. Used for all sections, tables, forms, widgets.",
+            "baseClass": "card",
+            "variants": {
+                "default": "card shadow-sm — lightweight shadow, white background, rounded-10px",
+                "flush": "card card-flush — no top border on card-header, firmer separation from page",
+                "bordered": "card card-bordered — visible border instead of shadow",
+                "dashed": "card card-dashed — dashed border, used for empty states or add-new targets"
+            },
+            "structure": {
+                "header": "card-header — flex row with card-title (h3) left + card-toolbar right. Min-height 70px.",
+                "body": "card-body — main content area. Padding typically p-9.",
+                "footer": "card-footer — optional. Padding py-5 px-9."
+            },
+            "title": "fs-3 fw-bold text-gray-800 or .card-title class",
+            "toolbar": "Right-aligned flex area for action buttons, filters, menus",
+            "designNotes": "Never nest cards. Use card-flush when card sits inside another padded container. Always give cards a title unless it is a pure widget/chart."
+        },
+        "button": {
+            "description": "All interactive actions use btn base class with a type modifier.",
+            "baseClass": "btn",
+            "sizes": {
+                "tiny": "btn-xs — not a Bootstrap default, Metronic custom, ~28px height. Use in table rows.",
+                "small": "btn-sm — 34px height",
+                "default": "(no modifier) — 42px height",
+                "large": "btn-lg — 50px height"
+            },
+            "types": {
+                "solid": "btn-{color} — fully filled background. e.g. btn-primary, btn-danger",
+                "light": "btn-light-{color} — light tinted background with colored text. e.g. btn-light-primary",
+                "outline": "btn-outline btn-outline-{color} btn-active-light-{color} — transparent with border",
+                "outlineDashed": "btn-outline btn-outline-dashed btn-outline-{color} btn-active-light-{color}",
+                "icon": "btn-icon — square icon-only button, requires btn-{size} for dimensions"
+            },
+            "hoverEffects": {
+                "elevateUp": "hover-elevate-up class — slight upward translate on hover",
+                "elevateDown": "hover-elevate-down",
+                "scale": "hover-scale — slight zoom"
+            },
+            "loadingState": "Add data-kt-indicator='on'. Wrap label in .indicator-label and spinner in .indicator-progress span.",
+            "withIcons": "Place ki-duotone icon before text inside button. Icon size should be fs-2 or fs-3.",
+            "crudPattern": "In table rows: btn-xs btn-primary (view), btn-xs btn-info (edit), btn-xs btn-danger (delete via form submit)",
+            "designNotes": "Never use bare anchor tags for actions. Primary page CTA uses btn-primary. Secondary uses btn-light. Destructive uses btn-danger or btn-light-danger. All buttons inside cards should be btn-sm or default; never btn-lg inside card toolbars."
+        },
+        "alert": {
+            "baseClass": "alert d-flex align-items-center p-5",
+            "variants": {
+                "themed": "alert-{color} — colored left accent + light tinted background",
+                "solid": "alert-dismissible bg-{color} d-flex flex-column flex-sm-row — fully colored bg, white text"
+            },
+            "withIcon": "ki-duotone icon at fs-2hx with me-4. Icon color matches alert type.",
+            "withTitle": "h4 inside .d-flex.flex-column wrapper",
+            "dismissible": "position-absolute close button (top-0 end-0) with ki-cross icon",
+            "flashMessages": "alert-success for session message, alert-danger with ul.list-unstyled for validation errors"
+        },
+        "badge": {
+            "baseClass": "badge",
+            "variants": {
+                "filled": "badge-{color} — e.g. badge-primary",
+                "light": "badge-light-{color} — tinted background — most common in tables",
+                "circle": "badge badge-circle — round indicator, used for notification counts",
+                "square": "badge badge-square — slightly rounded square",
+                "outline": "badge badge-outline badge-{color}"
+            },
+            "designNotes": "Use badge-light-{color} for status columns in tables. Use badge-circle for notification bubbles on icons. Font size is tiny — let padding define the badge size."
+        },
+        "table": {
+            "wrapperClass": "table-responsive",
+            "baseClass": "table align-middle table-row-dashed fs-6 gy-5",
+            "theadClass": "text-start text-muted fw-bold fs-7 text-uppercase gs-0",
+            "tbodyClass": "text-gray-600 fw-semibold",
+            "stripedVariant": "table-striped",
+            "checkboxColumn": "form-check form-check-sm form-check-custom form-check-solid — use data-kt-check and data-kt-check-target for select-all",
+            "actionColumn": "Last column, right-aligned. btn-xs buttons with @can gates.",
+            "datatables": "Initialize with $(#id).DataTable() in scripts section. Table ID must follow kt_table_{resource} pattern.",
+            "designNotes": "dashed rows (table-row-dashed) are the default Metronic style. They feel lighter than bordered. Always wrap in table-responsive. Align all cells middle. Status values use badge-light-{color} chips."
+        },
+        "form": {
+            "fieldWrapper": "fv-row mb-7 — required by FormValidation.js for error targeting",
+            "label": "fs-6 fw-semibold mb-2 text-gray-800 — add class 'required' for required fields (shows CSS asterisk)",
+            "inputClasses": {
+                "default": "form-control",
+                "solid": "form-control form-control-solid — filled gray background, no border visible at rest",
+                "transparent": "form-control form-control-transparent",
+                "flush": "form-control form-control-flush — no border, no background"
+            },
+            "sizes": {
+                "sm": "form-control-sm",
+                "lg": "form-control-lg"
+            },
+            "validation": {
+                "invalid": "Add is-invalid class to input, show div.invalid-feedback",
+                "library": "FormValidation.js with Bootstrap5 plugin. rowSelector: '.fv-row'"
+            },
+            "helper": "div.text-muted.fs-7 below the input",
+            "select2": "form-select data-control='select2' data-placeholder='...' — always include empty first option",
+            "checkbox": "form-check form-check-custom form-check-solid — input.form-check-input + label.form-check-label",
+            "switch": "form-check form-switch form-check-custom form-check-solid",
+            "uploadImage": "div.image-input.image-input-empty with data-kt-image-input='true'. Edit/cancel/remove action labels.",
+            "dropzone": "div.dropzone.needsclick with dz-message containing ki-file-up icon + heading + sub-text",
+            "designNotes": "form-control-solid is the default inside cards. form-control (plain) is for lighter contexts. Always pair fv-row + mb-7 on every field group. Required asterisk is CSS-only via the 'required' class on the label."
+        },
+        "modal": {
+            "baseClass": "modal fade",
+            "dialogClass": "modal-dialog (+ modal-{size} + modal-dialog-centered + modal-dialog-scrollable)",
+            "sizes": {
+                "default": "~500px",
+                "sm": "modal-sm (~300px)",
+                "lg": "modal-lg (~800px)",
+                "xl": "modal-xl (~1140px)",
+                "fullscreen": "modal-fullscreen"
+            },
+            "closeButton": "btn btn-icon btn-sm btn-active-light-primary ms-2 — inside header, uses ki-cross fs-1 icon",
+            "footer": "modal-footer — btn-light (cancel) + btn-primary (confirm), ordered cancel-first",
+            "staticBackdrop": "data-bs-backdrop='static' data-bs-keyboard='false' — for confirmation dialogs",
+            "designNotes": "Modal close button is never an × character — always a ki-cross icon inside btn-icon. Modal titles are h3.modal-title. Footers always have at least two buttons."
+        },
+        "tabs": {
+            "lineTabsClass": "nav nav-tabs nav-line-tabs mb-5 fs-6",
+            "stretchTabsClass": "nav nav-stretch nav-line-tabs fw-bold fs-6",
+            "lineTabsStyle2": "nav-line-tabs-2x — thicker underline indicator",
+            "activeClass": "nav-link active text-active-primary",
+            "inactiveClass": "nav-link text-muted",
+            "contentClass": "tab-content",
+            "paneActiveClass": "tab-pane fade show active",
+            "paneClass": "tab-pane fade",
+            "designNotes": "Line tabs are standard. Stretch tabs (nav-stretch) fill available width evenly — used in profile page header navs. Tab panes always use fade transition."
+        },
+        "accordion": {
+            "baseClass": "accordion",
+            "buttonClass": "accordion-button fs-4 fw-semibold",
+            "collapsedClass": "collapsed (added to accordion-button when closed)",
+            "bodyClass": "accordion-collapse collapse (+ show when open)",
+            "contentClass": "accordion-body",
+            "designNotes": "Accordion buttons are always fs-4 fw-semibold. Content inside accordion-body can contain any HTML including forms."
+        },
+        "breadcrumb": {
+            "baseClass": "breadcrumb text-muted fs-6 fw-semibold",
+            "separatorVariants": {
+                "dot": "breadcrumb-dot",
+                "line": "breadcrumb-line",
+                "separatorless": "breadcrumb-separatorless (use bullet spans between items)"
+            },
+            "activeItem": "breadcrumb-item text-muted (no link)",
+            "linkItem": "breadcrumb-item > a (plain anchor, inherits muted color)",
+            "designNotes": "Breadcrumbs live in the toolbar below page title. Use breadcrumb-separatorless with bullet separators in profile-style headers."
+        },
+        "symbol": {
+            "description": "Avatar/symbol component for user images or text initials",
+            "baseClass": "symbol symbol-{size}px",
+            "sizes": "30px, 35px, 40px, 45px, 50px, 75px, 100px, 125px, 150px",
+            "imageVariant": "symbol > img",
+            "labelVariant": "symbol > div.symbol-label.fs-2.fw-semibold.bg-{color}.text-{textColor}",
+            "circleVariant": "symbol-circle class on root div",
+            "badgeVariant": "span.symbol-badge.badge.badge-circle.bg-{color}.start-100.top-100 inside symbol div",
+            "designNotes": "Initials are always uppercase first letter only. Background color should use light variants (bg-light-primary) with matching text color. Add symbol-circle for round avatars."
+        },
+        "separator": {
+            "baseClass": "separator my-{n}",
+            "variants": {
+                "solid": "separator (default solid line)",
+                "dashed": "separator separator-dashed",
+                "dotted": "separator separator-dotted",
+                "colored": "separator border-{color}"
+            },
+            "designNotes": "Use my-5 to my-10 for spacing. Dashed separators are used inside card bodies and menu sections."
+        },
+        "pagination": {
+            "baseClass": "ul.pagination",
+            "itemClass": "page-item",
+            "linkClass": "page-link",
+            "activeClass": "page-item active",
+            "disabledClass": "page-item disabled",
+            "prevNext": "page-item previous / page-item next — use <i class='previous'> and <i class='next'> inside link",
+            "laravelIntegration": "Use x-metronic.base.pagination :paginator=$records — OR $records->links() wrapped in div.row > div.col"
+        },
+        "drawer": {
+            "description": "Slide-in side panel. Alternative to modal for forms/filters that need context.",
+            "baseClass": "bg-white data-kt-drawer='true' data-kt-drawer-activate='true'",
+            "width": "Typically 400–500px via data-kt-drawer-width",
+            "interior": "card.w-100.rounded-0 with card-header (title + close btn) and card-body.hover-scroll-overlay-y",
+            "closeButton": "btn btn-sm btn-icon btn-active-light-primary — ki-cross fs-2",
+            "trigger": "Any button with data-kt-drawer-toggle='#{drawerId}'",
+            "designNotes": "Drawer content should always use the card structure inside. Body scrolls independently via hover-scroll-overlay-y."
+        },
+        "stepper": {
+            "baseClass": "stepper stepper-pills",
+            "navClass": "stepper-nav flex-center flex-wrap mb-10",
+            "itemClass": "stepper-item mx-2 my-4 (+ current for active step)",
+            "iconClass": "stepper-icon w-40px h-40px — contains stepper-check + stepper-number",
+            "labelClass": "stepper-label — contains stepper-title (h3) + stepper-desc",
+            "contentElement": "data-kt-stepper-element='content'",
+            "jsInit": "new KTStepper(element) — listen for kt.stepper.next and kt.stepper.previous events",
+            "designNotes": "Steppers use pill-style indicators (circles with numbers). The check icon (fas fa-check) replaces the number on completed steps. Step content panels use flex-column and data-kt-stepper-element='content'."
+        },
+        "menu": {
+            "triggerAttrs": "data-kt-menu-trigger='click' (or hover) and data-kt-menu-placement='bottom-start'",
+            "panelClass": "menu menu-sub menu-sub-dropdown menu-column menu-rounded menu-gray-600 menu-state-bg-light-primary fw-semibold py-3",
+            "panelAttr": "data-kt-menu='true'",
+            "itemClass": "menu-item px-3",
+            "linkClass": "menu-link px-3",
+            "sectionHeading": "menu-item px-3 > div.menu-content.text-muted.pb-2.px-3.fs-7.text-uppercase",
+            "separator": "menu-separator inside menu-item",
+            "designNotes": "Menu panels always use bg-white with border. Trigger button and menu panel are sibling elements — Metronic JS connects them via the data attributes. Never position menu panels with manually written CSS z-index."
+        },
+        "dropdown": {
+            "description": "Simple Bootstrap dropdown — only use for basic cases. Prefer Metronic menu for styled dropdowns.",
+            "triggerClass": "dropdown-toggle",
+            "panelClass": "dropdown-menu dropdown-menu-end"
+        },
+        "toast": {
+            "via": "Toastr JS library",
+            "config": "positionClass: 'toastr-top-right', closeButton: true, timeOut: '5000'",
+            "types": "toastr.success(), toastr.error(), toastr.warning(), toastr.info()",
+            "customClass": "The toast uses Metronic-themed styling via style.bundle.css"
+        },
+        "swalAlert": {
+            "via": "SweetAlert2 (Swal)",
+            "buttonStyling": "Always set buttonsStyling: false and use customClass.confirmButton: 'btn btn-primary'",
+            "cancelClass": "customClass.cancelButton: 'btn btn-light'",
+            "designNotes": "Never use browser default confirm(). Use Swal.fire() for all confirmation dialogs."
+        },
+        "statsWidget": {
+            "description": "KPI metric card — single number with context",
+            "structure": "card.bgi-no-repeat + card-body with: title link (fw-bold text-muted text-hover-primary fs-4) > metric value (fw-bold text-{color} my-6 fs-2hx) > description (text-gray-900-75 fw-semibold fs-5)",
+            "countup": "Large numbers use data-kt-countup='true' data-kt-countup-value='{n}' for animated counting",
+            "designNotes": "Stats widgets never have card headers. The title is a link inside the card-body. Color drives the semantic meaning (success=green, danger=red, primary=blue)."
+        },
+        "profileCard": {
+            "description": "User profile header with avatar, name, role, stats grid, progress bar, and nav tabs",
+            "avatarSize": "symbol-100px symbol-lg-160px symbol-fixed",
+            "onlineDot": "position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px",
+            "nameClass": "text-gray-900 text-hover-primary fs-2 fw-bold",
+            "metaItems": "d-flex align-items-center text-gray-500 text-hover-primary — icon (fs-4 me-1) + text",
+            "statBadge": "border border-gray-300 border-dashed rounded min-w-125px py-3 px-4 me-6 mb-3",
+            "progressBar": "h-5px mx-3 w-100 bg-light > div.bg-success.rounded.h-5px",
+            "navTabs": "nav nav-stretch nav-line-tabs nav-line-tabs-2x border-transparent fs-5 fw-bold",
+            "designNotes": "Profile cards have no card-header. All content is inside card-body.pt-9.pb-0. Nav tabs sit at the bottom of the card body, flush with the card border."
+        },
+        "chartWidget": {
+            "apexcharts": "div#id.mh-{n}px → new ApexCharts(element, config).render()",
+            "chartjs": "canvas#id.mh-400px → new Chart(ctx, config)",
+            "colorScheme": "Primary #1B84FF, Success #17C653, Danger #F8285A, Warning #F6C000, Info #7239EA",
+            "chartFill": "Gradient fills preferred over solid. Area charts use opacity 0.2 at bottom.",
+            "toolbarButtons": "btn-sm btn-color-muted btn-active-color-primary — for chart period selectors (1M/3M/1Y)",
+            "designNotes": "Charts sit flush inside card-body. Height defined by parent container. Use ApexCharts as the primary charting library."
+        },
+        "dataTable": {
+            "jsInit": "$(\"#id\").DataTable() or new DataTable initialization in scripts section",
+            "tableClass": "table align-middle table-row-dashed fs-6 gy-5",
+            "theadRowClass": "text-start text-gray-500 fw-bold fs-7 text-uppercase gs-0",
+            "customButtons": "Extend dtButtons array. Bulk delete button: btn-danger with AJAX POST to massDestroy.",
+            "designNotes": "DataTables inherits Metronic styling via style.bundle.css. The dashed table-row-dashed gives it a modern, editorial look. Never add borders manually."
+        },
+        "indicator": {
+            "description": "Loading state on buttons during async operations",
+            "usage": "Set data-kt-indicator='on' on the button element",
+            "labelSpan": "span.indicator-label — shown when not loading",
+            "progressSpan": "span.indicator-progress — shown when loading (contains text + spinner-border.spinner-border-sm.align-middle.ms-2)",
+            "designNotes": "Always include both spans. The Metronic JS toggles visibility automatically based on data-kt-indicator attribute."
+        },
+        "overlay": {
+            "description": "Hover overlay on images/cards with action buttons",
+            "wrapperClass": "card overlay (or any div overlay)",
+            "innerWrapper": "overlay-wrapper",
+            "overlayLayer": "overlay-layer bg-dark bg-opacity-25 — absolutely positioned over content",
+            "designNotes": "Use for image galleries, product cards, or any hover-to-reveal interaction."
+        },
+        "pulse": {
+            "description": "Animated ring around notification icons",
+            "usage": "Add pulse class to btn-icon link. Include span.pulse-ring inside.",
+            "example": "a.btn.btn-icon.btn-light.pulse > (icon) + span.pulse-ring"
+        },
+        "countup": {
+            "description": "Animated number count-up on page load",
+            "usage": "data-kt-countup='true' data-kt-countup-value='{n}' data-kt-countup-prefix='$'",
+            "initialValue": "Set inner text to 0 — JS replaces on load"
+        }
+    },
+    "icons": {
+        "system": "Keenthemes Ki Icons — Duotone variant",
+        "prefix": "ki-duotone",
+        "usage": "<i class='ki-duotone ki-{name} fs-{n} text-{color}'><span class='path1'></span><span class='path2'></span></i>",
+        "pathCount": "1–22 paths depending on icon complexity. Always include ALL path spans.",
+        "sizes": {
+            "fs-1": "largest",
+            "fs-2": "standard UI icon",
+            "fs-3": "smaller action icon",
+            "fs-2hx": "2x extra — for alert icons",
+            "fs-3x": "3× — for hero/empty state icons"
+        },
+        "solidVariant": "ki-solid prefix — single-color, no path children needed",
+        "colorClasses": "text-primary, text-success, text-danger, text-warning, text-info, text-gray-{n}, text-muted, text-white",
+        "criticalRule": "Never omit <span class='pathN'> children on ki-duotone icons. Missing paths = invisible icon segments.",
+        "commonIcons": {
+            "dashboard": "ki-element-11",
+            "add": "ki-plus",
+            "edit": "ki-pencil",
+            "delete": "ki-trash",
+            "view": "ki-eye",
+            "close": "ki-cross",
+            "search": "ki-search",
+            "filter": "ki-filter",
+            "menu": "ki-abstract-14",
+            "check": "ki-check",
+            "arrowUp": "ki-arrow-up",
+            "arrowDown": "ki-arrow-down",
+            "star": "ki-star",
+            "shield": "ki-shield-tick",
+            "file": "ki-file-up",
+            "calendar": "ki-calendar",
+            "notifications": "ki-notification",
+            "settings": "ki-setting-2",
+            "user": "ki-profile-circle",
+            "logout": "ki-entrance-right",
+            "chart": "ki-chart-simple",
+            "basket": "ki-basket",
+            "money": "ki-dollar",
+            "lock": "ki-lock",
+            "mail": "ki-sms",
+            "location": "ki-geolocation",
+            "verified": "ki-verify",
+            "warning": "ki-information-5",
+            "minus": "ki-minus"
+        }
+    },
+    "interactionPatterns": {
+        "pageLoad": {
+            "loader": "div.page-loader with span.spinner-border.text-primary inside body — auto-hidden by KTApp",
+            "countup": "Numbers animate on first viewport entry via data-kt-countup",
+            "theme": "Theme mode (light/dark) read from localStorage on page load before render to prevent flash"
+        },
+        "navigation": {
+            "sidebarToggle": "Mobile: btn with id kt_app_sidebar_mobile_toggle + ki-abstract-14 icon",
+            "sidebarHoverable": "Desktop: sidebar expands from icon-only to full on hover when data-kt-app-sidebar-hoverable='true'",
+            "headerMenuDropdown": "Metronic JS triggers on hover (lg) or click (mobile). data-kt-menu-trigger attributes drive behavior.",
+            "activeLinks": "Active state applied by Metronic JS based on current URL. menu-here-bg for parent, text-active-primary for the link."
+        },
+        "dataLoading": {
+            "blockUI": "KTBlockUI on parent container — shows spinner overlay over card/table during load",
+            "skeleton": "Not a standard Metronic pattern — use BlockUI instead",
+            "emptyState": "Card with dz-message–style empty state: large icon (fs-3x), heading (fs-5 fw-bold), subtext (fs-7 text-muted), CTA button"
+        },
+        "formSubmission": {
+            "validation": "FormValidation.js triggers on submit. Invalid fields get is-invalid class + error message below.",
+            "loadingButton": "Set data-kt-indicator='on' on submit button before AJAX. Remove after response.",
+            "successFeedback": "Swal.fire success or toastr.success — never browser alert()",
+            "errorFeedback": "Swal.fire error or toastr.error — never browser alert()"
+        },
+        "confirmDelete": {
+            "pattern": "form[method=POST] with @method('DELETE') + onsubmit='return confirm(...)' — OR Swal.fire for better UX",
+            "sweetalert": "Swal.fire({ icon: 'warning', showCancelButton: true, buttonsStyling: false, customClass: { confirmButton: 'btn btn-danger', cancelButton: 'btn btn-light' } })"
+        }
+    },
+    "laravelIntegration": {
+        "layout": "@extends('layouts.admin') with @section('content') and @section('scripts') @parent",
+        "componentNamespace": "x-metronic.{type}.{name} — all components under resources/views/components/metronic/",
+        "formPattern": {
+            "create": "<form method='POST' action='{{ route(...) }}'>@csrf ... fields ... submit button</form>",
+            "update": "<form method='POST' action='{{ route(...) }}'>@csrf @method('PUT') ... fields ... submit button</form>",
+            "delete": "<form method='POST' action='{{ route(...) }}' onsubmit='return confirm(...)'>@csrf @method('DELETE')<button type='submit'></button></form>"
+        },
+        "authorization": "@can('{resource}_{action}') gates wrap ALL CRUD UI elements",
+        "translation": "trans('global.{key}') and trans('cruds.{model}.{key}') for all user-facing strings",
+        "pagination": "$records->links() inside div.row > div.col — OR x-metronic.base.pagination :paginator=$records",
+        "validationErrors": "automatic in layouts.admin — session('message') for success, $errors for validation",
+        "datatables": "$(\"#kt_table_{resource}\").DataTable() initialized in @section('scripts') @parent",
+        "jsScope": "All page-specific JS goes in @section('scripts') @parent block. Never inline in @section('content').",
+        "idConvention": "kt_ prefix on all JavaScript-targetable element IDs"
+    },
+    "darkModeGuidelines": {
+        "toggle": "data-bs-theme='light' or 'dark' on html element. Metronic reads from localStorage.",
+        "sidebarNote": "Dark sidebar layout has dark sidebar regardless of light/dark mode toggle. The sidebar background (#1E2129) does not change.",
+        "bodyNote": "Content area bg changes: #F9F9F9 (light) → dark gray (dark mode)",
+        "componentAdaptation": "Metronic components auto-adapt via CSS custom properties. No manual dark mode class toggling needed."
+    },
+    "doAndDontRules": {
+        "do": [
+            "Use x-metronic.card for every page section",
+            "Use fv-row mb-7 wrapper for every form field",
+            "Use ki-duotone icons with ALL path spans",
+            "Use form-control-solid inside cards",
+            "Use btn-xs for table row CRUD actions",
+            "Prefix all JS-targeted IDs with kt_",
+            "Gate all CRUD UI with @can directives",
+            "Use trans() for all user-facing strings",
+            "Use Swal.fire() for confirmations",
+            "Use toastr for success/error feedback",
+            "Use table-row-dashed for the standard table style",
+            "Use separator-dashed between card sections",
+            "Wrap tables in table-responsive"
+        ],
+        "dont": [
+            "Never use browser confirm() or alert()",
+            "Never use inline styles except chart container heights",
+            "Never nest card components inside each other",
+            "Never add btn-lg to buttons inside card toolbars",
+            "Never use @symbol spans for icons — always ki-duotone",
+            "Never omit path spans on duotone icons",
+            "Never put CRUD action links outside @can gates",
+            "Never write page JS inside @section('content')",
+            "Never use TailwindCSS classes — this is a Bootstrap project",
+            "Never use multiple shadow layers on a single element",
+            "Never hardcode color values in blade files — use Bootstrap/Metronic utility classes"
+        ]
+    }
+}
